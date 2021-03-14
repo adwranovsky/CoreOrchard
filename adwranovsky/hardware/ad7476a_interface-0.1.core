@@ -61,3 +61,9 @@ targets:
         tools:
             symbiyosys:
                 tasknames: [cover2]
+
+provider:
+    name: github
+    user: adwranovsky
+    repo: ad7476a_interface
+    version: 5d9cc755a49a6407a3be9f6b353037404b190475

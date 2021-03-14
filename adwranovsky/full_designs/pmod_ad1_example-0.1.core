@@ -33,3 +33,9 @@ targets:
             vivado:
                 part: xc7a35ticsg324-1L
                 synth: yosys
+
+provider:
+    name: github
+    user: adwranovsky
+    repo: pmod_ad1_example
+    version: 886119250ae8d299d84b2d69af0abe222e9cc483

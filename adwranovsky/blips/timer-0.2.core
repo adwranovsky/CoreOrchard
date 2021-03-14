@@ -62,3 +62,9 @@ parameters:
         default: 0
         description: If set to 1, cover properties for formal verification are included
         paramtype: vlogparam
+
+provider:
+    name: github
+    user: adwranovsky
+    repo: timer
+    version: 894206bb3928d5058ce1e992a260cf40ad2277f5

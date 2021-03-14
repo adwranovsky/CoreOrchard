@@ -44,3 +44,9 @@ parameters:
         default     : 0x07
         description : The CRC-8 polynomial to use
         paramtype   : vlogparam
+
+provider:
+    name: github
+    user: adwranovsky
+    repo: crc8
+    version: f6b5cf3875177f52fe56a842c11901fa664bfcda

@@ -62,3 +62,9 @@ parameters:
         default: 0
         description: If set to 1, cover properties for formal verification are included
         paramtype: vlogparam
+
+provider:
+    name: github
+    user: adwranovsky
+    repo: shift_register
+    version: 66ef02025a04de9efd3642a34e800028f59611a1

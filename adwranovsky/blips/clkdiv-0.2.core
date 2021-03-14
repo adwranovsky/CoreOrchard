@@ -67,3 +67,9 @@ parameters:
         default: 0
         description: If set to 1, cover properties for formal verification are included
         paramtype: vlogparam
+
+provider:
+    name: github
+    user: adwranovsky
+    repo: clkdiv
+    version: d7f10960d382bcee8f5d3adcd399b3328bd0f054
