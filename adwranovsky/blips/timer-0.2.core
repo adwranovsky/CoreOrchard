@@ -1,0 +1,64 @@
+CAPI=2:
+
+name: adwranovsky:blips:timer:0.2
+
+filesets:
+    rtl:
+        files:
+            - rtl/timer.v
+        file_type: systemVerilogSource
+    formal:
+        files:
+            - timer.sby
+        file_type: sbyConfigTemplate
+
+targets:
+    default:
+        filesets: [rtl]
+    lint:
+        default_tool: verilator
+        filesets: [rtl]
+        toplevel: timer
+        tools:
+            verilator:
+                mode: "lint-only"
+    quick_synth:
+        default_tool: yosys
+        filesets: [rtl]
+        toplevel: timer
+        tools:
+            yosys:
+                arch: xilinx
+    bmc:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: timer
+        tools:
+            symbiyosys:
+                tasknames: [bmc]
+    prove:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: timer
+        tools:
+            symbiyosys:
+                tasknames: [prove]
+    cover:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: timer
+        tools:
+            symbiyosys:
+                tasknames: [cover]
+
+parameters:
+    WIDTH:
+        datatype: int
+        default: 8
+        description: The timer bit width
+        paramtype: vlogparam
+    COVER:
+        datatype: int
+        default: 0
+        description: If set to 1, cover properties for formal verification are included
+        paramtype: vlogparam

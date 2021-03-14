@@ -1,0 +1,46 @@
+CAPI=2:
+
+name: adwranovsky:blips:crc8:0.1
+
+filesets:
+    rtl:
+        file_type: verilogSource
+        files:
+            - rtl/crc_table.v
+            - rtl/crc8.v
+    rom:
+        file_type: verilogSource
+        files:
+            - rtl/crc_table.v
+    verilator_tb:
+        file_type: cppSource
+        files:
+            - tb/rom_dump.cpp
+
+targets:
+    default:
+        filesets: [rtl]
+    lint:
+        default_tool: "verilator"
+        filesets: [rtl]
+        toplevel: crc8
+        tools:
+            verilator:
+                mode: lint-only
+                verilator_options: [-Wall]
+    rom_dump_tb:
+        default_tool: "verilator"
+        filesets: [rom, verilator_tb]
+        parameters:
+            - POLYNOMIAL
+        toplevel: crc_table
+        tools:
+            verilator:
+                verilator_options: [-Wall, --trace]
+
+parameters:
+    POLYNOMIAL:
+        datatype    : int
+        default     : 0x07
+        description : The CRC-8 polynomial to use
+        paramtype   : vlogparam

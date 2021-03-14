@@ -1,0 +1,35 @@
+CAPI=2:
+
+name : adwranovsky:full_designs:pmod_ad1_example:0.1
+
+filesets:
+    rtl:
+        depend:
+            - ">=adwranovsky_hardware_ad7476a_interface-0.1"
+        files:
+            - rtl/top.v
+            - rtl/pwm.v
+        file_type: systemVerilogSource
+    arty_a7_35t:
+        files:
+            - constraints/Arty-A7-35-Master.xdc
+        file_type: xdc
+
+targets:
+    default:
+        filesets : [rtl]
+    lint:
+        default_tool : "verilator"
+        filesets : [rtl]
+        toplevel : "pmod_ad1_top"
+        tools:
+            verilator:
+                mode : "lint-only"
+    arty_a7_35t:
+        default_tool : vivado
+        filesets     : [rtl, arty_a7_35t]
+        toplevel     : pmod_ad1_top
+        tools:
+            vivado:
+                part: xc7a35ticsg324-1L
+                synth: yosys

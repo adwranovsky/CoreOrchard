@@ -1,0 +1,69 @@
+CAPI=2:
+
+name: adwranovsky:blips:clkdiv:0.2
+
+filesets:
+    rtl:
+        files:
+            - rtl/clkdiv.v
+        file_type: systemVerilogSource
+    formal:
+        files:
+            - clkdiv.sby
+        file_type: sbyConfigTemplate
+
+targets:
+    default:
+        filesets: [rtl]
+    lint:
+        default_tool: verilator
+        filesets: [rtl]
+        toplevel: clkdiv
+        tools:
+            verilator:
+                mode: "lint-only"
+    quick_synth:
+        default_tool: yosys
+        filesets: [rtl]
+        toplevel: clkdiv
+        tools:
+            yosys:
+                arch: xilinx
+    bmc:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: clkdiv
+        tools:
+            symbiyosys:
+                tasknames: [bmc]
+    prove:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: clkdiv
+        tools:
+            symbiyosys:
+                tasknames: [prove]
+    cover:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: clkdiv
+        tools:
+            symbiyosys:
+                tasknames: [cover]
+
+parameters:
+    DIV:
+        datatype: int
+        default: 8
+        description: The amount to divide the input clock by
+        paramtype: vlogparam
+    IDLE_HIGH:
+        datatype: int
+        default: 1
+        description: The value that the clock output idles at, either 1 or 0
+        paramtype: vlogparam
+    COVER:
+        datatype: int
+        default: 0
+        description: If set to 1, cover properties for formal verification are included
+        paramtype: vlogparam

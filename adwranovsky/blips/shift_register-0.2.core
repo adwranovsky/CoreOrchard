@@ -1,0 +1,64 @@
+CAPI=2:
+
+name: adwranovsky:blips:shift_register:0.2
+
+filesets:
+    rtl:
+        files:
+            - rtl/shift_register.v
+        file_type: systemVerilogSource
+    formal:
+        files:
+            - shift_register.sby
+        file_type: sbyConfigTemplate
+
+targets:
+    default:
+        filesets: [rtl]
+    lint:
+        default_tool: verilator
+        filesets: [rtl]
+        toplevel: shift_register
+        tools:
+            verilator:
+                mode: "lint-only"
+    quick_synth:
+        default_tool: yosys
+        filesets: [rtl]
+        toplevel: shift_register
+        tools:
+            yosys:
+                arch: xilinx
+    bmc:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: shift_register
+        tools:
+            symbiyosys:
+                tasknames: [bmc]
+    prove:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: shift_register
+        tools:
+            symbiyosys:
+                tasknames: [prove]
+    cover:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: shift_register
+        tools:
+            symbiyosys:
+                tasknames: [cover]
+
+parameters:
+    WIDTH:
+        datatype: int
+        default: 8
+        description: The shift register bit width
+        paramtype: vlogparam
+    COVER:
+        datatype: int
+        default: 0
+        description: If set to 1, cover properties for formal verification are included
+        paramtype: vlogparam
