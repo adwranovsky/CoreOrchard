@@ -1,0 +1,25 @@
+CAPI=2:
+
+name: ultraembedded:FPGAmp:dvi:0.1
+
+filesets:
+    rtl:
+        files:
+            - gateware/dvi/dvi_framebuffer_defs.v
+            - gateware/dvi/dvi_serialiser.v
+            - gateware/dvi/dvi.v
+            - gateware/dvi/dvi_framebuffer_fifo.v
+            - gateware/dvi/dvi_resync.v
+            - gateware/dvi/dvi_tmds_encoder.v
+            - gateware/dvi/dvi_framebuffer.v
+        file_type: verilogSource
+
+targets:
+    default:
+        filesets: [rtl]
+
+provider:
+    name: github
+    user: ultraembedded
+    repo: FPGAmp
+    version: 4b9c9cf2c8b8be5f6efbc647dd42da29135d737b
