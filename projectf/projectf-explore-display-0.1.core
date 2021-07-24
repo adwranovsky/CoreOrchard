@@ -1,0 +1,29 @@
+CAPI=2:
+
+name: projectf:explore:display:0.1
+
+filesets:
+    rtl:
+        depend:
+            - ">=projectf_explore_clock-0.1"
+            - ">=projectf_explore_memory-0.1"
+        files:
+            - lib/display/display_timings_1080p.sv
+            - lib/display/display_timings_720p.sv
+            - lib/display/display_timings_480p.sv
+            - lib/display/display_timings_24x18.sv
+            - lib/display/framebuffer_db.sv
+            - lib/display/framebuffer.sv
+            - lib/display/linebuffer.sv
+            - lib/display/tmds_encoder_dvi.sv
+        file_type: systemVerilogSource
+
+targets:
+    default:
+        filesets: [rtl]
+
+provider:
+    name: github
+    user: projf
+    repo: projf-explore
+    version: 4cebc91e2a12e3fc7b8c69a6c97c7e9b213c7a61

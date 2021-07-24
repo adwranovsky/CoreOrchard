@@ -1,0 +1,20 @@
+CAPI=2:
+
+name: projectf:explore:clock:0.1
+
+filesets:
+    rtl:
+        files:
+            - lib/clock/xd.sv
+        file_type: systemVerilogSource
+
+targets:
+    default:
+        filesets: [rtl]
+
+provider:
+    name: github
+    user: projf
+    repo: projf-explore
+    version: 4cebc91e2a12e3fc7b8c69a6c97c7e9b213c7a61
+
