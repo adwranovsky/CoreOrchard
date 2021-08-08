@@ -1,0 +1,36 @@
+CAPI=2:
+
+name: ultraembedded::ddr3_controller:0.0.1
+description: A Lightweight AXI-4 DDR3 Controller
+
+filesets:
+    rtl:
+        files:
+            - src_v/ddr3_axi.v
+            - src_v/ddr3_axi_core.v
+            - src_v/ddr3_axi_pmem.v
+            - src_v/ddr3_axi_retime.v
+            - src_v/ddr3_axi_seq.v
+        file_type: verilogSource
+    xc7_phy:
+        files:
+            - src_v/phy/xc7/ddr3_dfi_phy.v
+        file_type: verilogSource
+    ecp5_phy:
+        files:
+            - src_v/phy/ecp5/ddr3_dfi_phy.v
+        file_type: verilogSource
+
+targets:
+    default:
+        filesets:
+            - rtl
+            - "tool_vivado? (xc7_phy)"
+            - "tool_trellis? (ecp5_phy)"
+
+provider:
+    name: github
+    user: ultraembedded
+    repo: core_ddr3_controller
+    version: 3be842dcc2a3a8f1da9b41a0beb5145aa7b43b95
+
