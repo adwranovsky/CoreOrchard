@@ -1,0 +1,61 @@
+CAPI=2:
+
+name: adwranovsky:hardware:quick_spi:1.0
+
+filesets:
+    rtl:
+        depend:
+            - ">=adwranovsky_blips_timer-0.2"
+            - ">=adwranovsky_blips_shift_register-1.0"
+            - ">=adwranovsky_blips_clkdiv-1.0"
+        files:
+            - rtl/quick_spi.v
+        file_type: systemVerilogSource
+    formal:
+        files:
+            - quick_spi.sby
+        file_type: sbyConfigTemplate
+
+targets:
+    default:
+        filesets: [rtl]
+    lint:
+        default_tool: verilator
+        filesets: [rtl]
+        toplevel: quick_spi
+        tools:
+            verilator:
+                mode: "lint-only"
+    quick_synth:
+        default_tool: yosys
+        filesets: [rtl]
+        toplevel: quick_spi
+        tools:
+            yosys:
+                arch: xilinx
+    bmc:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: quick_spi
+        tools:
+            symbiyosys:
+                tasknames: [bmc]
+    prove:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: quick_spi
+        tools:
+            symbiyosys:
+                tasknames: [prove]
+    cover:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: quick_spi
+        tools:
+            symbiyosys:
+                tasknames: [cover]
+provider:
+    name: github
+    user: adwranovsky
+    repo: quick_spi
+    version: ba1b5cd6de51ce94ae356472b8985f51926d7e60

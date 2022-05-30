@@ -1,0 +1,110 @@
+CAPI=2:
+
+name: adwranovsky:blips:shift_register:1.0
+
+filesets:
+    rtl:
+        files:
+            - rtl/shift_register_sipo.v
+            - rtl/shift_register_piso.v
+        file_type: systemVerilogSource
+    formal:
+        files:
+            - shift_register.sby
+        file_type: sbyConfigTemplate
+
+targets:
+    default:
+        filesets: [rtl]
+
+    lint_sipo:
+        default_tool: verilator
+        filesets: [rtl]
+        toplevel: shift_register_sipo
+        tools:
+            verilator:
+                mode: "lint-only"
+    lint_piso:
+        default_tool: verilator
+        filesets: [rtl]
+        toplevel: shift_register_piso
+        tools:
+            verilator:
+                mode: "lint-only"
+
+    quick_synth_sipo:
+        default_tool: yosys
+        filesets: [rtl]
+        toplevel: shift_register_sipo
+        tools:
+            yosys:
+                arch: xilinx
+    quick_synth_piso:
+        default_tool: yosys
+        filesets: [rtl]
+        toplevel: shift_register_piso
+        tools:
+            yosys:
+                arch: xilinx
+
+    bmc_sipo:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: shift_register_sipo
+        tools:
+            symbiyosys:
+                tasknames: [bmc_sipo]
+    prove_sipo:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: shift_register_sipo
+        tools:
+            symbiyosys:
+                tasknames: [prove_sipo]
+    cover_sipo:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: shift_register_sipo
+        tools:
+            symbiyosys:
+                tasknames: [cover_sipo]
+
+    bmc_piso:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: shift_register_piso
+        tools:
+            symbiyosys:
+                tasknames: [bmc_piso]
+    prove_piso:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: shift_register_piso
+        tools:
+            symbiyosys:
+                tasknames: [prove_piso]
+    cover_piso:
+        default_tool: symbiyosys
+        filesets: [rtl, formal]
+        toplevel: shift_register_piso
+        tools:
+            symbiyosys:
+                tasknames: [cover_piso]
+
+parameters:
+    WIDTH:
+        datatype: int
+        default: 8
+        description: The shift register bit width
+        paramtype: vlogparam
+    COVER:
+        datatype: int
+        default: 0
+        description: If set to 1, cover properties for formal verification are included
+        paramtype: vlogparam
+
+provider:
+    name: github
+    user: adwranovsky
+    repo: shift_register
+    version: 8780aa1addb98923e28ade5a5ec37858315ace44

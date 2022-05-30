@@ -1,19 +1,15 @@
 CAPI=2:
 
-name: adwranovsky:hardware:ad7476a_interface:0.1
+name: adwranovsky:blips:clkdiv:1.0
 
 filesets:
     rtl:
-        depend:
-            - ">=adwranovsky_blips_timer-0.2"
-            - ">=adwranovsky_blips_shift_register-0.2"
-            - ">=adwranovsky_blips_clkdiv-0.2"
         files:
-            - rtl/ad7476a_interface.v
+            - rtl/clkdiv.v
         file_type: systemVerilogSource
     formal:
         files:
-            - ad7476a_interface.sby
+            - clkdiv.sby
         file_type: sbyConfigTemplate
 
 targets:
@@ -22,48 +18,58 @@ targets:
     lint:
         default_tool: verilator
         filesets: [rtl]
-        toplevel: ad7476a_interface
+        toplevel: clkdiv
         tools:
             verilator:
                 mode: "lint-only"
     quick_synth:
         default_tool: yosys
         filesets: [rtl]
-        toplevel: ad7476a_interface
+        toplevel: clkdiv
         tools:
             yosys:
                 arch: xilinx
     bmc:
         default_tool: symbiyosys
         filesets: [rtl, formal]
-        toplevel: ad7476a_interface
+        toplevel: clkdiv
         tools:
             symbiyosys:
                 tasknames: [bmc]
-    bmc2:
+    prove:
         default_tool: symbiyosys
         filesets: [rtl, formal]
-        toplevel: ad7476a_interface
+        toplevel: clkdiv
         tools:
             symbiyosys:
-                tasknames: [bmc2]
+                tasknames: [prove]
     cover:
         default_tool: symbiyosys
         filesets: [rtl, formal]
-        toplevel: ad7476a_interface
+        toplevel: clkdiv
         tools:
             symbiyosys:
                 tasknames: [cover]
-    cover2:
-        default_tool: symbiyosys
-        filesets: [rtl, formal]
-        toplevel: ad7476a_interface
-        tools:
-            symbiyosys:
-                tasknames: [cover2]
+
+parameters:
+    DIV:
+        datatype: int
+        default: 8
+        description: The amount to divide the input clock by
+        paramtype: vlogparam
+    IDLE_HIGH:
+        datatype: int
+        default: 1
+        description: The value that the clock output idles at, either 1 or 0
+        paramtype: vlogparam
+    COVER:
+        datatype: int
+        default: 0
+        description: If set to 1, cover properties for formal verification are included
+        paramtype: vlogparam
 
 provider:
     name: github
     user: adwranovsky
-    repo: ad7476a_interface
-    version: 5d9cc755a49a6407a3be9f6b353037404b190475
+    repo: clkdiv
+    version: b67113913ba4c45ab532d88c32c1e36b2f8c97d1

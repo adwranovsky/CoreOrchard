@@ -1,14 +1,15 @@
 CAPI=2:
 
-name : adwranovsky:full_designs:pmod_ad1_example:0.1
+name : adwranovsky:full_designs:pmod_ad1_example:1.0
 
 filesets:
     rtl:
         depend:
-            - ">=adwranovsky_hardware_ad7476a_interface-0.1"
+            - ">=adwranovsky_hardware_quick_spi-1.0"
         files:
             - rtl/top.v
             - rtl/pwm.v
+            - rtl/handshake_latch.v
         file_type: systemVerilogSource
     arty_a7_35t:
         files:
@@ -32,10 +33,9 @@ targets:
         tools:
             vivado:
                 part: xc7a35ticsg324-1L
-                synth: yosys
 
 provider:
     name: github
     user: adwranovsky
     repo: pmod_ad1_example
-    version: 886119250ae8d299d84b2d69af0abe222e9cc483
+    version: 4fd83f02b9504063823da7439ff36a3e744c7a71
