@@ -1,6 +1,6 @@
 CAPI=2:
 
-name: adwranovsky:blips:shift_register:1.0
+name: adwranovsky:blips:shift_register:1.1
 
 filesets:
     rtl:
@@ -107,4 +107,4 @@ provider:
     name: github
     user: adwranovsky
     repo: shift_register
-    version: 8780aa1addb98923e28ade5a5ec37858315ace44
+    version: 8f1fa8f65aa59e3d5fa04c71f8b34d14cce92f92
